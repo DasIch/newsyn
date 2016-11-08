@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'newsyn.auth'
 ]
 
 MIDDLEWARE = [
@@ -83,6 +85,11 @@ DATABASES = {
         'PORT': '5432'
     }
 }
+
+
+# Custom User Model
+# https://docs.djangoproject.com/en/1.10/topics/auth/customizing/#substituting-a-custom-user-model
+AUTH_USER_MODEL = 'newsyn_auth.User'
 
 
 # Password validation
