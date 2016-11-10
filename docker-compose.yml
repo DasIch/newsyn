@@ -13,11 +13,18 @@ services:
       - db
     links:
       - db
+  frontend:
+    build: frontend
+    volumes:
+      - ./frontend:/code
+    ports:
+      - "8000"
   nginx:
     build: nginx
     ports:
       - "8000:8000"
     depends_on:
       - backend
+      - frontend
     links:
       - backend
