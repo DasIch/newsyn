@@ -1,0 +1,69 @@
+/*
+ *  api-client
+ *  ~~~~~~~~~~
+ *
+ *  :copyright: 2016 by Daniel Neuhäuser
+ */
+
+import Cookies from 'js-cookie';
+
+
+class _APIClient {
+  constructor(csrftoken) {
+    this.csrftoken = csrftoken;
+  }
+
+  post(path, init) {
+    let values = init || {};
+    values.method = 'POST';
+    if (typeof values.headers === 'undefined') {
+      values.headers = {};
+    };
+    values.headers['X-CSRFToken'] = this.csrftoken;
+    values.headers['Content-Type'] = 'application/json';
+    values.credentials = 'same-origin';
+    return fetch(path, values)
+  }
+
+  login(email, password) {
+    return this.post('/api/auth/login/', {
+      body: JSON.stringify({
+        email: email,
+        password: password
+      })
+    }).then((response) => {
+      switch(response.status) {
+        case 204: null;
+        case 400: Promise.reject(new Error('wrong username or password'));
+        default: Promise.reject(new Error('unexpected response'));
+      }
+    })
+  }
+
+  logout() {
+    return this.post('/api/auth/logout/')
+      .then((response) => {
+        switch(response.status) {
+          case 204: return null;
+          case 400: return Promise.reject(new Error('not logged in'));
+          default: return Promise.reject(new Error('unexpected response'));
+        }
+      });
+  }
+}
+
+
+function fetchCSRFToken() {
+  return fetch('/api/', { credentials: 'same-origin' })
+    .then((response) => {
+      if (response.status === 200) {
+        return Cookies.get('csrftoken');
+      } else {
+        return Promise.reject(new Error('unexpected response'));
+      }
+    });
+}
+
+const APIClient = fetchCSRFToken().then((token) => { return new _APIClient(token) });
+
+export default APIClient;
