@@ -45,7 +45,7 @@ class _APIClient {
       .then((response) => {
         switch(response.status) {
           case 204: return null;
-          case 400: return Promise.reject(new Error('not logged in'));
+          case 403: return Promise.reject(new Error('not logged in'));
           default: return Promise.reject(new Error('unexpected response'));
         }
       });

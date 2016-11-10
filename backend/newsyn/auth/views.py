@@ -39,14 +39,13 @@ class LoginView(generics.GenericAPIView):
 
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def logout(request, format=None):
     """
     Logs a user out.
     """
-    if request.user.is_authenticated:
-        auth.logout(request)
-        return Response(status=status.HTTP_204_NO_CONTENT)
-    return Response(status=status.HTTP_400_BAD_REQUEST)
+    auth.logout(request)
+    return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 @api_view(['GET'])
