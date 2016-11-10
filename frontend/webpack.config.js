@@ -1,11 +1,18 @@
+var path = require("path");
+var webpack = require("webpack");
+
 module.exports = {
-  context: __dirname + "/src",
+  context: path.join(__dirname, "/src"),
+  devtool: "eval",
   entry: [
+    "react-hot-loader/patch",
+    "webpack-hot-middleware/client",
     "./entry.js",
     "./index.html"
   ],
   output: {
-    path: __dirname + "/dist",
+    path: path.join(__dirname, "/dist"),
+    publicPath: "/",
     filename: "bundle.js"
   },
   module: {
@@ -17,8 +24,13 @@ module.exports = {
       },
       {
         test: /\.html$/,
-        loader: 'file?name=[name].[ext]'
+        loader: "file?name=[name].[ext]"
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
+  ]
 };
