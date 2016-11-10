@@ -67,3 +67,16 @@ class TestLogoutView(APITestCase):
     def test_anonymous_user(self):
         response = self.client.post(reverse('logout'))
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+class TestUserView(APITestCase):
+    def test(self):
+        user = create_user()
+        self.client.login(email=USER_EMAIL, password=USER_PASSWORD)
+        response = self.client.get(reverse('user'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.json(), {'email': USER_EMAIL})
+
+    def test_anonymous_user(self):
+        response = self.client.get(reverse('user'), format='json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
