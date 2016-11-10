@@ -13,6 +13,17 @@ class _APIClient {
     this.csrftoken = csrftoken;
   }
 
+  get(path, init) {
+    let values = init || {};
+    values.method = 'GET';
+    if (typeof values.headers === 'undefined') {
+      values.headers = {};
+    };
+    values.headers['Content-Type'] = 'application/json';
+    values.credentials = 'same-origin';
+    return fetch(path, values);
+  }
+
   post(path, init) {
     let values = init || {};
     values.method = 'POST';
@@ -47,6 +58,17 @@ class _APIClient {
           case 204: return null;
           case 403: return Promise.reject(new Error('not logged in'));
           default: return Promise.reject(new Error('unexpected response'));
+        }
+      });
+  }
+
+  getAuthenticatedUser() {
+    return this.get('/api/auth/user/')
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          return Promise.reject(new Error('unexpected response'));
         }
       });
   }
