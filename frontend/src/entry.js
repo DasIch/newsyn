@@ -8,24 +8,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
+import { browserHistory } from 'react-router';
 
-import routes from './routes'
+import Root from './components/Root';
+import { configureStore } from './configureStore';
+
+
+const rootElement = document.getElementById('root');
+const store = configureStore();
 
 ReactDOM.render(
   <AppContainer>
-    {routes}
+    <Root store={store} history={browserHistory} />
   </AppContainer>,
-  document.getElementById("root")
+  rootElement
 );
 
 if (module.hot) {
-  module.hot.accept("./routes", () => {
-    const nextRoutes = require("./routes").default;
+  module.hot.accept('./components/Root', () => {
+    const NextRoot = require('./components/Root').default;
     ReactDOM.render(
       <AppContainer>
-        {nextRoutes}
+        <NextRoot store={store} history={browserHistory} />
       </AppContainer>,
-      document.getElementById("root")
+      rootElement
     );
   });
 }
