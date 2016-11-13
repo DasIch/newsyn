@@ -22,6 +22,11 @@ const user = (state = {
         isFetching: false,
         user: action.user,
       };
+    case ActionTypes.USER_FAILED:
+      return {
+        ...state,
+        isFetching: false
+      };
     default:
       return state;
   }
