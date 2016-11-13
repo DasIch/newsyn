@@ -10,12 +10,12 @@ import { Router, Route, IndexRoute } from 'react-router';
 
 import App from './App';
 import Home from './Home';
-import { fetchUser } from '../actions';
+import { startup } from '../actions';
 
 
 export default class Root extends Component {
   componentDidMount() {
-    this.props.store.dispatch(fetchUser());
+    this.props.store.dispatch(startup());
   }
 
   render() {

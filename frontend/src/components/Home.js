@@ -9,6 +9,6 @@ import React, { Component } from 'react'
 
 export default class Home extends Component {
   render() {
-    return <p>Loading...</p>;
+    return <p>Home!</p>;
   }
 }
