@@ -1,12 +1,10 @@
 /*
- *  reducers
- *  ~~~~~~~~
+ *  reducers/user
+ *  ~~~~~~~~~~~~~
  *
  *  :copyright: 2016 by Daniel Neuhäuser
  */
-import { combineReducers } from "redux"
-
-import * as ActionTypes from "./actions"
+import * as ActionTypes from "../actions"
 
 
 const user = (state = {
@@ -30,8 +28,6 @@ const user = (state = {
     default:
       return state;
   }
-}
+};
 
-export const rootReducer = combineReducers({
-  user
-});
+export default user;
