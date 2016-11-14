@@ -34,6 +34,10 @@ class _APIClient {
     values.headers['Content-Type'] = 'application/json';
     values.credentials = 'same-origin';
     return fetch(path, values)
+      .then((response => {
+        this.csrftoken = Cookies.get('csrftoken');
+        return response;
+      }).bind(this));
   }
 
   login(email, password) {
