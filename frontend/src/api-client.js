@@ -37,18 +37,17 @@ class _APIClient {
   }
 
   login(email, password) {
-    return this.post('/api/auth/login/', {
-      body: JSON.stringify({
-        email: email,
-        password: password
-      })
-    }).then((response) => {
-      switch(response.status) {
-        case 204: null;
-        case 400: Promise.reject(new Error('wrong username or password'));
-        default: Promise.reject(new Error('unexpected response'));
-      }
-    })
+    const body = JSON.stringify({email, password});
+    return this.post('/api/auth/login/', { body })
+      .then(response => {
+        switch (response.status) {
+          case 204: return null;
+          case 400:
+            throw new Error('wrong username or password');
+          default:
+            throw new Error('unexpected response');
+        }
+      });
   }
 
   logout() {

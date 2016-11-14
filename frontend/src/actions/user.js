@@ -40,3 +40,38 @@ export const fetchUser = () => {
       .catch(error => dispatch(failedUser(error)));
   };
 };
+
+
+export const USER_LOGIN_REQUEST = 'USER_LOGIN_REQUEST';
+const requestUserLogin = () => {
+  return {type: USER_LOGIN_REQUEST};
+};
+
+
+export const USER_LOGIN_RECEIVED = 'USER_LOGIN_RECEIVED';
+const receivedUserLogin = (user) => {
+  return {
+    type: USER_LOGIN_RECEIVED,
+    user
+  };
+};
+
+
+export const USER_LOGIN_FAILED = 'USER_LOGIN_FAILED';
+const failedUserLogin = (error) => {
+  return {
+    type: USER_LOGIN_FAILED,
+    error
+  };
+};
+
+
+export const login = (email, password) => {
+  return dispatch => {
+    dispatch(requestUserLogin());
+    return APIClient
+      .then(client => client.login(email, password))
+      .then(() => dispatch(receivedUserLogin({ email })))
+      .catch(error => dispatch(failedUserLogin(error)));
+  };
+};
