@@ -12,5 +12,6 @@ from rest_framework.reverse import reverse
 @api_view(['GET'])
 def api_root(request, format=None):
     return Response({
-        'auth': reverse('auth', request=request, format=format)
+        'auth': reverse('auth', request=request, format=format),
+        'feeds': reverse('feed-list', request=request, format=format)
     })

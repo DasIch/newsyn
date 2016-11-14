@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_pdb',
 
-    'newsyn.auth'
+    'newsyn.auth',
+    'newsyn.feeds'
 ]
 
 MIDDLEWARE = [
