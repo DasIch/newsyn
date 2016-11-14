@@ -12,16 +12,21 @@ const loginRequired = (WrappedComponent) => {
     constructor(props, context) {
       super(props);
 
-      this.context = context;
+      this.router = context.router;
+      this.store = context.store;
+      this.unsubscribe = this.store.subscribe(this.handleChange.bind(this));
+      this.state = this.store.getState();
     }
 
-    ensureAuthentication(nextContext) {
-      const context = nextContext || this.context;
-      const state = context.store.getState();
-      const router = context.router;
-      const loggedIn = !state.user.isFetching && !!state.user.user;
+    handleChange() {
+      const state = this.store.getState();
+      this.setState(this.store.getState());
+    }
+
+    ensureAuthentication() {
+      const loggedIn = !this.state.user.isFetching && !!this.state.user.user;
       if (!loggedIn) {
-        router.replace('/login/');
+        this.router.replace('/login/');
       }
     }
 
@@ -29,8 +34,12 @@ const loginRequired = (WrappedComponent) => {
       this.ensureAuthentication();
     }
 
-    componentWillUpdate(nextProps, nextState, nextContext) {
-      this.ensureAuthentication(nextContext);
+    componentWillUnmount() {
+      this.unsubscribe();
+    }
+
+    componentWillUpdate() {
+      this.ensureAuthentication();
     }
 
     render() {

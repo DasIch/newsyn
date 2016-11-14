@@ -7,12 +7,14 @@
 
 import React, { Component } from 'react';
 
+import Header from './Header';
+
 
 export default class Root extends Component {
   render() {
     return (
       <div>
-        <h1>Newsyn</h1>
+        <Header />
         <div className="content">
           {this.props.children}
         </div>
