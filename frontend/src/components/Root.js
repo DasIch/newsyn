@@ -10,22 +10,20 @@ import { Router, Route, IndexRoute } from 'react-router';
 
 import App from './App';
 import Home from './Home';
-import { startup } from '../actions';
+import Loading from './Loading';
 
 
 export default class Root extends Component {
-  componentDidMount() {
-    this.props.store.dispatch(startup());
-  }
-
   render() {
     return (
       <Provider store={this.props.store}>
-        <Router history={this.props.history}>
-          <Route path="/" component={App}>
-            <IndexRoute component={Home} />
-          </Route>
-        </Router>
+        <Loading>
+          <Router history={this.props.history}>
+            <Route path="/" component={App}>
+              <IndexRoute component={Home} />
+            </Route>
+          </Router>
+        </Loading>
       </Provider>
     );
   }
