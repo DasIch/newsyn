@@ -16,8 +16,7 @@ import Login from './Login';
 
 const mapStateToProps = (state) => {
   return {
-    hasStarted: state.startup,
-    loggedIn: !state.user.isFetching && !!state.user.user
+    hasStarted: state.startup
   };
 };
 
@@ -31,20 +30,8 @@ const mapDispatchToProps = (dispatch) => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(
   class App extends Component {
-    constructor(props) {
-      super(props);
-
-      this.requireAuth = this.requireAuth.bind(this);
-    }
-
     componentDidMount() {
       this.props.startup();
-    }
-
-    requireAuth(nextState, replace) {
-      if (!this.props.loggedIn) {
-        replace('/login/');
-      }
     }
 
     render() {
@@ -52,7 +39,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         return (
           <Router history={this.props.history}>
             <Route path="/" component={Root}>
-              <IndexRoute component={Home} onEnter={this.requireAuth} />
+              <IndexRoute component={Home} />
               <Route path="/login/" component={Login} />
             </Route>
           </Router>
