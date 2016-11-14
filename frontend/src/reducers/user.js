@@ -47,6 +47,24 @@ const user = (state = {
         isFetching: false,
         error: action.error
       };
+    case ActionTypes.USER_LOGOUT_REQUEST:
+      return {
+        ...state,
+        isFetching: true,
+        error: undefined
+      };
+    case ActionTypes.USER_LOGOUT_RECEIVED:
+      return {
+        ...state,
+        isFetching: false,
+        user: null
+      };
+    case ActionTypes.USER_LOGOUT_FAILED:
+      return {
+        ...state,
+        isFetching: false,
+        error: action.error
+      };
     default:
       return state;
   }

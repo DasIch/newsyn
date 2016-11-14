@@ -75,3 +75,33 @@ export const login = (email, password) => {
       .catch(error => dispatch(failedUserLogin(error)));
   };
 };
+
+
+export const USER_LOGOUT_REQUEST = 'USER_LOGOUT_REQUEST';
+const requestUserLogout = () => {
+  return {type: USER_LOGOUT_REQUEST};
+};
+
+export const USER_LOGOUT_RECEIVED = 'USER_LOGOUT_RECEIVED';
+const receiveUserLogout = () => {
+  return {type: USER_LOGOUT_RECEIVED};
+};
+
+export const USER_LOGOUT_FAILED = 'USER_LOGOUT_FAILED';
+const failedUserLogout = error => {
+  return {
+    type: USER_LOGOUT_FAILED,
+    error
+  };
+};
+
+
+export const logout = () => {
+  return dispatch => {
+    dispatch(requestUserLogout());
+    return APIClient
+      .then(client => client.logout())
+      .then(() => dispatch(receiveUserLogout()))
+      .catch(error => dispatch(failedUserLogout(error)));
+  };
+};
