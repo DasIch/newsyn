@@ -1,2 +1,2 @@
 #!fish
-set -x -g DOCKERHOST (ifconfig en0 inet | grep "inet " | awk '{ print $2 }')
+set -x -g DOCKERHOST (ifconfig | grep "inet " | grep -v "127\.0\.0\.1" | awk '{ print $2 }')
