@@ -5,20 +5,19 @@
  *  :copyright: 2016 by Daniel Neuhäuser
  */
 
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
-import Header from './Header';
-
+import Header from './Header'
 
 export default class Root extends Component {
-  render() {
+  render () {
     return (
       <div>
         <Header />
-        <div className="content">
+        <div className='content'>
           {this.props.children}
         </div>
       </div>
-    );
+    )
   }
 }

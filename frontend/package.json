@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "standard": "standard || true"
   },
   "repository": {
     "type": "git",
@@ -16,7 +17,11 @@
     "url": "https://github.com/DasIch/newsyn/issues"
   },
   "homepage": "https://github.com/DasIch/newsyn#readme",
+  "standard": {
+    "globals": ["fetch"]
+  },
   "devDependencies": {
+    "standard": "^8.6.0",
     "webpack": "^1.13.3",
     "webpack-dev-middleware": "^1.8.4",
     "webpack-dev-server": "^1.16.2"

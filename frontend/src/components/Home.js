@@ -6,13 +6,12 @@
  */
 import React, { Component } from 'react'
 
-import loginRequired from './loginRequired';
-
+import loginRequired from './loginRequired'
 
 export default loginRequired(
   class Home extends Component {
-    render() {
-      return <p>Home!</p>;
+    render () {
+      return <p>Home!</p>
     }
   }
 )

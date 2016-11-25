@@ -1,30 +1,30 @@
-var path = require("path");
-var webpack = require("webpack");
+var path = require('path')
+var webpack = require('webpack')
 
 module.exports = {
-  context: path.join(__dirname, "/src"),
-  devtool: "eval",
+  context: path.join(__dirname, '/src'),
+  devtool: 'eval',
   entry: [
-    "react-hot-loader/patch",
-    "webpack-hot-middleware/client",
-    "./entry.js",
-    "./index.html"
+    'react-hot-loader/patch',
+    'webpack-hot-middleware/client',
+    './entry.js',
+    './index.htm'
   ],
   output: {
-    path: path.join(__dirname, "/dist"),
-    publicPath: "/",
-    filename: "bundle.js"
+    path: path.join(__dirname, '/dist'),
+    publicPath: '/',
+    filename: 'bundle.js'
   },
   module: {
     loaders: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "babel-loader",
+        loader: 'babel-loader'
       },
       {
         test: /\.html$/,
-        loader: "file?name=[name].[ext]"
+        loader: 'file?name=[name].[ext]'
       }
     ]
   },
@@ -37,4 +37,4 @@ module.exports = {
       fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch'
     })
   ]
-};
+}

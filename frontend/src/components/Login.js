@@ -4,59 +4,56 @@
  *
  *  :copyright: 2016 by Daniel Neuhäuser
  */
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-import { login } from '../actions';
-
+import { login } from '../actions'
 
 const mapStateToProps = (state) => {
   return {
     isLoggingIn: state.user.isFetching,
     isLoggedIn: !!state.user.user
-  };
+  }
 }
-
 
 const mapDispatchToProps = (dispatch) => {
   return {
     login: (email, password) => dispatch(login(email, password))
-  };
-};
-
+  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(
   class Login extends Component {
-    constructor(props) {
-      super(props);
+    constructor (props) {
+      super(props)
 
       this.state = {
         email: '',
         password: ''
-      };
-      this.handleSubmit = this.handleSubmit.bind(this);
-      this.handleChange = this.handleChange.bind(this);
+      }
+      this.handleSubmit = this.handleSubmit.bind(this)
+      this.handleChange = this.handleChange.bind(this)
     }
 
-    componentWillReceiveProps(props) {
+    componentWillReceiveProps (props) {
       if (props.isLoggedIn) {
-        props.router.push('/');
+        props.router.push('/')
       }
     }
 
-    handleSubmit(event) {
-      event.preventDefault();
-      this.props.login(this.state.email, this.state.password);
-      this.setState({password: ''});
+    handleSubmit (event) {
+      event.preventDefault()
+      this.props.login(this.state.email, this.state.password)
+      this.setState({password: ''})
     }
 
-    handleChange(event) {
+    handleChange (event) {
       this.setState({
         [event.target.name]: event.target.value
       })
     }
 
-    render() {
+    render () {
       return (
         <form onSubmit={this.handleSubmit}>
           <input
@@ -79,7 +76,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
             disabled={this.isLoggingIn}
           />
         </form>
-      );
+      )
     }
   }
 )

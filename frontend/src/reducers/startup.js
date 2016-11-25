@@ -4,16 +4,15 @@
  *
  *  :copyright: 2016 by Daniel Neuhäuser
  */
-import * as ActionTypes from "../actions"
-
+import * as ActionTypes from '../actions'
 
 const startup = (state = false, action) => {
   switch (action.type) {
     case ActionTypes.STARTUP_FINISH:
-      return true;
+      return true
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default startup;
+export default startup
